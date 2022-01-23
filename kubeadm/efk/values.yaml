@@ -1,0 +1,91 @@
+elasticsearch:
+  replicas: 1
+  clusterHealthCheckParams: 'wait_for_status=yellow&timeout=1s'
+  antiAffinity: "soft"
+  resources:
+    requests:
+      cpu: "300m"
+      memory: "2Gi"
+    limits:
+      cpu: "300m"
+      memory: "2Gi"
+
+  service:
+    type: NodePort
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+      - host: elasticsearch.hanium-devops.site
+        paths: 
+          - path: /
+    tls:
+      - secretName: hanium-tls
+        hosts:
+          - elasticsearch.hanium-devops.site
+          
+  volumeClaimTemplate:
+    storageClassName: nfs
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 10Gi
+  persistence:
+    enabled: true
+    labels:
+      app: efk
+      enabled: false
+    annotations: {}
+
+
+kibana:
+  resources:
+    requests:
+      cpu: "300m"
+      memory: "2Gi"
+    limits:
+      cpu: "300m"
+      memory: "2Gi"
+
+  service:
+    type: NodePort
+
+  healthCheckPath: /app/kibana
+
+  #kibanaConfig:
+  #  kibana.yml: |
+  #    server.basePath: /
+  #    server.rewriteBasePath: true
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: kibana.hanium-devops.site
+        paths:
+          - path: /
+    tls:
+      - secretName: hanium-tls
+        hosts:
+          - elasticsearch.hanium-devops.site
+
+fluentd:
+  fileConfigs:
+    04_outputs.conf: |-
+      <label @OUTPUT>
+        <match **>
+          @type elasticsearch
+          host "elasticsearch-master"
+          port 9200
+          path ""
+          logstash_format true
+          influde_timestamp true
+          time_key timestamp
+          user elastic
+          password changeme
+        </match>
+      </label>
