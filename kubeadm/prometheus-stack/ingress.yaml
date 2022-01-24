@@ -1,0 +1,60 @@
+#apiVersion: networking.k8s.io/v1beta1
+#kind: Ingress
+#ingressClassName: nginx
+#metadata:
+#  name: monitoring-prometheus
+#  namespace: monitoring
+#  annotations:
+#    kubernetes.io/ingress.class: nginx
+#spec:
+#  rules:
+#    - host: prometheus.hanium-devops.site
+#      http:
+#        paths:
+#          - backend:
+#              serviceName: monitoring-prometheus
+#               servicePort: 80
+#            path: /
+#            pathType: ImplementationSpecific
+#  tls:
+# - hosts:
+#    - argocd.hanium-devops.site
+#  secretName: hanium-tls
+
+
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#ingressClassName: nginx
+#metadata:
+#  name: monitoring-prometheus
+#  namespace: monitoring
+#  annotations:
+#    kubernetes.io/ingress.class: nginx
+#    meta.helm.sh/release-name: monitoring
+#    meta.helm.sh/release-namespace: monitoring
+#  generation: 1
+#  labels:
+#     app.kubernetes.io/instance: monitoring
+#     app.kubernetes.io/managed-by: Helm
+#     app.kubernetes.io/name: prometheus
+#     app.kubernetes.io/version: 8.0.3
+#  name: monitoring-prometheus
+#  namespace: monitoring
+#  resourceVersion: "787177"
+#  uid: d06896cd-84a6-4a80-addc-e3f343e8415a
+#spec:
+#   rules:
+#   - host: prometheus.hanium-devops.site
+#     http:
+#       paths:
+#       - backend:
+#           serviceName: monitoring-prometheus
+#           servicePort: 80
+#         path: /
+#         pathType: ImplementationSpecific
+#  tls:
+# - hosts:
+#    - argocd.hanium-devops.site
+#  secretName: hanium-tls
+#status:
+#  loadBalancer: {}
