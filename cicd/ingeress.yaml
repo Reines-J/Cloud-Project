@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: web-ingress
+  namespce: web
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+  - hosts:
+    - web.hanium-devops.site
+    secretName: hanium-tls
+  rules:
+  - host: web.hanium-devops.site
+    http:
+      paths:
+        - backend:
+            serviceName: web-service
+            servicePort: 8080
