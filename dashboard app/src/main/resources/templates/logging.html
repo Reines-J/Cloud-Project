@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+
+<th:block layout:fragment="style">
+    <style>
+        .logging-container {
+            padding: 10px;
+            min-height: 100vh;
+            background-color: #eeeeee;
+        }
+
+        .logging-box {
+            background-color: #fafafa;
+        }
+
+        .logging-progress-box {
+            padding: 10px;
+        }
+
+        .logging-table-box {
+            padding: 10px;
+        }
+
+        #progress {
+            transition: width 1.6s;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="logging-container">
+        <div class="logging-box">
+
+            <div class="logging-progress-box">
+                <div>
+                    <h3 style="display: inline">최신 로그</h3>
+                    <p style="display: inline">2초마다 Refresh 됩니다</p>
+                </div>
+                <div class="progress">
+                    <div id="progress" class="progress-bar" role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+            <div class="logging-table-box">
+                <table class="table">
+                    <thead id="data-head">
+                    <th>시간</th>
+                    <th>컨테이너 이름</th>
+                    <th>로그</th>
+                    </thead>
+                    <tbody id="data-cell">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        const makeTd = (something) => {
+            return "<td>" + something + "</td>";
+        }
+
+        const makeTr = (source) => {
+            return "<tr>" + makeTd(source['@timestamp']) + makeTd(source.kubernetes.container_name) + makeTd(source.log) + "</tr>";
+        }
+
+        const makeHtml = (sources) => {
+            return sources.map((source) => makeTr(source));
+        }
+
+        const getEsLog = () => {
+            axios.get('/es/log')
+                .then((res) => {
+                    const sources = res.data.hits.hits.map(item => item['_source']);
+                    const html = makeHtml(sources);
+                    $('#data-cell').html(html)
+
+
+                    $('#progress').css('transition', 'width 1.6s');
+                    $('#progress').css('width', '100%');
+                });
+
+            $('#progress').css('transition', 'width 0s');
+            $('#progress').css('width', '0%');
+        }
+
+        $('#progress').css('width', '100%');
+        setInterval(getEsLog, 2000);
+    </script>
+</th:block>
+</html>

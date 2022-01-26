@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
+
+<th:block layout:fragment="style">
+    <style>
+        .monitoring-container {
+            padding: 10px;
+            min-height: 100vh;
+            background-color: #eeeeee;
+        }
+
+        .monitoring-box {
+            background-color: #fafafa;
+        }
+
+        .monitoring-progress-box {
+            padding: 15px;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="content" style="align-content: center;">
+    <div class="monitoring-container">
+        <div class="monitoring-box">
+            <div class="monitoring-progress-box">
+                <div>
+                    <h3 style="display: inline;">Pod Monitoring</h3>
+                </div>
+                <div class="monitoring-progress-box" style="text-align: center;">
+                    <iframe src="https://grafana.hanium-devops.site/d-solo/AaZFb447k
+                    /kubernetes-pod-overview?orgId=1&var-namespace=web&var-pod=helloworld&var-contai
+                    ner=helloworld&from=1633723573187&to=1633724473188&panelId=9" width="250" height="200" frameborder="0"></iframe>
+                    <iframe
+                        src="https://grafana.hanium-devops.site/d-solo/AaZFb447k/kube
+                        rnetes-pod-overview?orgId=1&var-namespace=web&var-pod=helloworld&var-container=helloworld&from=1633716776072&to=1633717676072&panelId=9"
+                        width="250" height="200" frameborder="0"></iframe>
+                    <iframe src="https://grafana.hanium-devops.site/d-solo/HqIsS9S7z/1-kuber
+                        netes-all-in-one-cluster-monitoring-kr?orgId=1&refresh=5s&fro
+                        m=1633713788042&to=1633724588042&panelId=171" width="500" height="200" frameborder="0"></iframe>
+                    <iframe src="https://grafana.hanium-devops.site/d-solo/HqIsS9S7z/1-kubernetes-all-in-one-cl
+                    uster-monitoring-kr?orgId=1&refresh=5s&from=1633713991596&to=1633724791596&panelId=169" width="500" height="200" frameborder="0"></iframe>
+                </div>
+            </div>
+            <div class="monitoring-progress-box">
+                <div>
+                    <h3 style="display: inline;">Node Monitoring</h3>
+                </div>
+                <div class="monitoring-progress-box" style="text-align: center;">
+                    <iframe src="https://grafana.hanium-devops.site/d-solo/HqIsS9S7z/1-kubernetes-all-in-one-cluster-monitoring-kr?orgId=1&refresh=10s&var-node=&var-durat
+                    ion=5m&var-instance=10.0.1.231:9100&var-namespace=monitoring&var-pod=monitoring-gra
+                    fana-749cb7f96-nlr4n&from=1633714903446&to=1633725703446&panelId=154" width="250" height="200" frameborder="0"></iframe>
+                    <iframe src="https://grafana.hanium-devops.site/d-solo/HqIsS9S7z/1-kubernetes
+                    -all-in-one-cluster-monitoring-kr?orgId=1&refresh=5s&from=1633714288502&to=1
+                    633725088502&panelId=145" width="350" height="200" frameborder="0"></iframe>
+                    <iframe src="https://grafana.hanium-devops.site/d-solo/HqIsS9S7z/1-kubernetes-all-in-one-cluster-monitoring-kr?orgId=1&refresh=10s&va
+                    r-node=&var-duration=5m&var-instance=10.0.1.231:9100&var-namespace=monitoring&var-pod=monitoring-grafana-749cb7f9
+                    6-nlr4n&from=1633714932858&to=1633725732858&panelId=162" width="450" height="200" frameborder="0"></iframe>
+                    <iframe src="https://grafana.hanium-devops.site/d-solo/HqIsS9S7z/1-kubernetes-all-in-one-cluster-monitoring-kr?orgId=1&refresh=5s&
+                    from=1633715260765&to=1633726060765&panelId=162" width="450" height="200" frameborder="0"></iframe>
+                </div>
+            </div>
+            <div class="monitoring-progress-box">
+                <div>
+                    <h3 style="display: inline;">Cluster Monitoring</h3>
+                </div>
+                <div class="monitoring-progress-box" style="text-align: center;">
+                    <iframe src="https://grafana.hanium-devops.site/d-solo/HqIsS9S7z/1-kubernetes-all-in-one-cluster-monitoring-kr?orgId=1&ref
+                    resh=5s&from=1633715476878&to=1633726276878&panelId=35" width="375" height="200" frameborder="0"></iframe>
+                    <iframe src="https://grafana.hanium-devops.site/d-solo/HqIsS9S7z/1-kubernetes-all-in-one-cluster-monitoring-kr?orgId=1&ref
+                    resh=5s&from=1633715549485&to=1633726349485&panelId=33" width="375" height="200" frameborder="0"></iframe>
+                    <iframe src="https://grafana.hanium-devops.site/d-solo/HqIsS9S7z/1-kubernetes-all-in-one-cluster-monitoring-kr?orgId=1&ref
+                    resh=5s&from=1633715568546&to=1633726368546&panelId=133" width="375" height="200" frameborder="0"></iframe>
+                    <iframe src="https://grafana.hanium-devops.site/d-solo/HqIsS9S7z/1-kubernetes-all-in-one-cluster-monitoring-kr?orgId=1&ref
+                    resh=5s&from=1633715595852&to=1633726395852&panelId=164" width="375" height="200" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script>
+
+    </script>
+</th:block>
+
+</html>

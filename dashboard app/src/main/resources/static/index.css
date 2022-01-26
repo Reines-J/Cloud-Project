@@ -1,0 +1,38 @@
+html {
+    overflow: hidden;
+    background-color: #fafafa;
+}
+
+header nav.navbar {
+    background-color: #222222 !important;
+    padding-left: 10px;
+}
+
+header nav.navbar a {
+    color: #fafafa !important;
+}
+
+div.sidebar {
+    width: 300px;
+    height: 100vh;
+    position: absolute;
+
+    background-color: #444444;
+    color: #fafafa !important;
+}
+
+div.sidebar a {
+    color: #fafafa !important;
+}
+
+div.sidebar a:link {
+    color: #fafafa !important;
+}
+
+section#contentWrap {
+    padding-left: 300px;
+}
+
+section#content {
+    width: 100%;
+}
