@@ -1,0 +1,9 @@
+clusterName: terra-eks-test
+serviceAccount:
+  name: alb-controller
+  annotations: {}
+region: ap-northeast-2
+vpcId: <vpc id>
+enableShield: false
+enableWaf: false
+enableWafv2: false
