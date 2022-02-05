@@ -1,0 +1,50 @@
+expose:
+  tls:
+    certSource: secret
+    secret:
+      secretName: tls-certmanager
+      notarySecretName: tls-certmanager
+  ingress:
+    hosts:
+      croe: harbor.reines-test.link
+      notary: notary.reines-test.link
+  loadBalancer:
+    # The name of LoadBalancer service
+    name: harbor
+    # Set the IP if the LoadBalancer supports assigning IP
+    IP: ""
+    ports:
+      # The service port Harbor listens on when serving with HTTP
+      httpPort: 80
+      # The service port Harbor listens on when serving with HTTPS
+      httpsPort: 443
+      # The service port Notary listens on. Only needed when notary.enabled
+      # is set to true
+      notaryPort: 4443
+    annotations: 
+      kubernetes.io/ingress.class: alb
+    sourceRanges: []
+  externalURL: https://harbor.reines-test.link
+  persistence:
+    persistentVolumeClaim:
+      registry:
+        storageClass: efs-sc
+        accessMode: ReadWriteMany
+        size: 10Gi
+      chartmuseum:
+        storageClass: efs-sc
+        accessMode: ReadWriteMany
+        size: 10Gi
+      jobservice:
+        storageClass: efs-sc
+        accessMode: ReadWriteMany
+        size: 10Gi
+      database:
+        storageClass: efs-sc
+        accessMode: ReadWriteMany
+        size: 10Gi
+      redis:
+        storageClass: efs-sc
+        accessMode: ReadWriteMany
+        size: 10Gi
+        
