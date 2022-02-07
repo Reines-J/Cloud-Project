@@ -1,0 +1,44 @@
+installCRDs: true
+podLabels: 
+  linkerd.io/inject: enabled
+global:
+  serviceAccount:
+    name: "cert-manager"
+    annotatinos:
+      eks.amazonaws.com/role-arn: arn:aws:iam::<>
+    automountServiceAccountToken: true
+  securityContext:
+    enabled: true
+    fsGroup: 1001
+
+webhook:
+  podLabels: 
+    linkerd.io/inject: enabled
+  serviceAccount:
+    name: "cert-manager-webhook"
+    annotatinos:
+      eks.amazonaws.com/role-arn: arn:aws:iam::<>
+    automountServiceAccountToken: true
+  hostNetwork: true
+  securePort: 10260
+
+cainjector:
+  podLabels:
+    linkerd.io/inject: enabled
+  serviceAccount:
+    name: "cert-manager-cainjector"
+    annotatinos:
+      eks.amazonaws.com/role-arn: arn:aws:iam::<>
+    automountServiceAccountToken: true
+
+startupapicheck:
+  serviceAccount:
+    name: "cert-manager-startupapicheck"
+    annotatinos:
+      helm.sh/hook: post-install
+      helm.sh/hook-weight: "-5"
+      helm.sh/hook-delete-policy: hook-succeeded
+      linkerd.io/inject: disableds
+      eks.amazonaws.com/role-arn: arn:aws:iam::<>
+    automountServiceAccountToken: true
+    
