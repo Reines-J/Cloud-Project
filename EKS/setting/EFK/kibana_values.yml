@@ -1,0 +1,36 @@
+resources:
+  requests:
+    cpu: "300m"
+    memory: "3000Mi"
+  limits:
+    cpu: "300m"
+    memory: "3000Mi"
+service:
+  type: NodePort
+  # NodePort, LoadBalancer
+  loadBalancerIP: ""
+  port: 5601
+  nodePort: ""
+  labels: {}
+  annotations: {}
+  loadBalancerSourceRanges: []
+    # 0.0.0.0/0
+  httpPortName: http
+
+healthCheckPath: /app/kibana
+#kibanaConfig:
+#  kibana.yml: |
+#    server.basePath: /
+#    server.rewriteBasePath: true
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: alb
+  hosts:
+    - host: kibana.reines-test.link
+      paths:
+        - path: /
+  tls:
+    - secretName: tls-certmanager
+      hosts:
+        - kibana.reines-test.link

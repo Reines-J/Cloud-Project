@@ -1,0 +1,52 @@
+
+replicas: 1
+minimumMasterNodes: 2
+clusterHealthCheckParams: 'wait_for_status=yellow&timeout=1s'
+resources:
+  requests:
+    cpu: "300m"
+    memory: "3000Mi"
+  limits:
+    cpu: "300m"
+    memory: "3000Mi"
+volumeClaimTemplate:
+  storageClassName: efs-sc
+  accessModes: [ "ReadWriteMany" ]
+  resources:
+    requests:
+      storage: 10Gi
+persistence:
+  enabled: true
+  labels:
+    app: efk
+    enabled: false
+  annotations: {}
+antiAffinity: "soft"
+
+service:
+  enabled: true
+  labels: {}
+  labelsHeadless: {}
+  type: NodePort
+  # NodePort, LoadBalancer
+  nodePort: ""
+  annotations: {}
+  httpPortName: http
+  transportPortName: transport
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  externalTrafficPolicy: ""
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: alb
+  hosts:
+    - host: elasticsearch.reines-test.link
+      paths: 
+        - path: /
+  tls:
+    - secretName: tls-certmanager
+      hosts:
+        - elasticsearch.reines-test.link
+        
